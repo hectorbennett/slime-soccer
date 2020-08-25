@@ -1,19 +1,21 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/theme/theme.tres" type="Theme" id=1]
-[ext_resource path="res://src/Menu/PlayButton.gd" type="Script" id=2]
+[ext_resource path="res://src/HUD/HUD.gd" type="Script" id=2]
 
-[node name="UI" type="Control"]
+[node name="HUD" type="Control"]
 margin_right = 1024.0
 margin_bottom = 576.0
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Splash" type="Control" parent="."]
-margin_right = 1024.0
-margin_bottom = 568.0
+margin_left = -0.176758
+margin_right = 1023.82
+margin_bottom = 576.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,64 +34,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="Splash/Menu"]
+[node name="1Min" type="Button" parent="Splash/Menu"]
 margin_right = 176.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "1 Minute"
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton2" type="Button" parent="Splash/Menu"]
+[node name="2Min" type="Button" parent="Splash/Menu"]
 margin_left = 180.0
 margin_right = 356.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "2 Minutes"
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-duration = 2
 
-[node name="PlayButton3" type="Button" parent="Splash/Menu"]
+[node name="4Min" type="Button" parent="Splash/Menu"]
 margin_left = 360.0
 margin_right = 536.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "4 Minutes"
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-duration = 4
 
-[node name="PlayButton4" type="Button" parent="Splash/Menu"]
+[node name="8Min" type="Button" parent="Splash/Menu"]
 margin_left = 540.0
 margin_right = 716.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "8 Minutes"
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-duration = 8
 
-[node name="PlayButton5" type="Button" parent="Splash/Menu"]
+[node name="WorldCup" type="Button" parent="Splash/Menu"]
 margin_left = 720.0
 margin_right = 899.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "World Cup"
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -100,15 +94,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -162.0
-margin_top = -54.0
-margin_right = 162.0
-margin_bottom = 78.0
+margin_top = -79.0
+margin_right = 176.0
+margin_bottom = 134.0
 text = "Soccer Slime! (Remake)
 
 
-
-
-Originally written by Quin Pendragon
+Written by Quin Pendragon (originally)
 Mimicked by Hector Bennett
 "
 align = 1
@@ -117,7 +109,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LeftLabel" type="Label" parent="."]
+[node name="LeftTeamLabel" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 104.0
@@ -127,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RightLabel" type="Label" parent="."]
+[node name="RightTeamLabel" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -279.0
@@ -139,8 +131,23 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="button_up" from="Splash/Menu/PlayButton" to="Splash/Menu/PlayButton" method="_on_button_up"]
-[connection signal="button_up" from="Splash/Menu/PlayButton2" to="Splash/Menu/PlayButton2" method="_on_button_up"]
-[connection signal="button_up" from="Splash/Menu/PlayButton3" to="Splash/Menu/PlayButton3" method="_on_button_up"]
-[connection signal="button_up" from="Splash/Menu/PlayButton4" to="Splash/Menu/PlayButton4" method="_on_button_up"]
-[connection signal="button_up" from="Splash/Menu/PlayButton5" to="Splash/Menu/PlayButton5" method="_on_button_up"]
+
+[node name="TimerLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -244.0
+margin_right = 64.0
+margin_bottom = -220.0
+text = "01:00:00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="Splash/Menu/1Min" to="." method="_on_1Min_button_up"]
+[connection signal="button_down" from="Splash/Menu/2Min" to="." method="_on_2Min_button_down"]
+[connection signal="button_up" from="Splash/Menu/4Min" to="." method="_on_4Min_button_up"]
+[connection signal="button_up" from="Splash/Menu/8Min" to="." method="_on_8Min_button_up"]

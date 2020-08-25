@@ -1,40 +1,62 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/textures/floor.png" type="Texture" id=1]
+[ext_resource path="res://src/Goal/GoalBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Ball/Ball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Slime/Slime.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Main/RichTextLabel.gd" type="Script" id=4]
+[ext_resource path="res://src/Goal/GoalHangingIndicator.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Main/Game.gd" type="Script" id=7]
 [ext_resource path="res://src/Goal/Goal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/Menu/UI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/HUD/HUD.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 512, 128 )
+extents = Vector2( 512, 46 )
 
-[sub_resource type="TileSet" id=2]
-0/name = "floor.png 0"
-0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 32, 32 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node"]
 script = ExtResource( 7 )
 
-[node name="UI" parent="." instance=ExtResource( 11 )]
-margin_top = 0.707108
-margin_bottom = 576.707
+[node name="background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 576.0
+color = Color( 0.0431373, 0, 0.996078, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HUD" parent="." instance=ExtResource( 11 )]
+
+[node name="SlimeLeft" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 448 )
+
+[node name="SlimeRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 768, 448 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+UI_LEFT = "ui_left_p2"
+UI_RIGHT = "ui_right_p2"
+UI_UP = "ui_up_p2"
+UI_DOWN = "ui_down_p2"
+DIRECTION = ""
+INITIAL_TEAM_INDEX = 1
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 288 )
+
+[node name="GoalLeft" parent="." instance=ExtResource( 8 )]
+position = Vector2( 32, 408 )
+slime = "SlimeRight"
+
+[node name="GoalRight" parent="." instance=ExtResource( 8 )]
+position = Vector2( 992, 408 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+slime = "SlimeLeft"
 
 [node name="Pitch" type="Node2D" parent="."]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Floor" type="StaticBody2D" parent="Pitch"]
 position = Vector2( 512, 640 )
@@ -43,29 +65,30 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/Floor"]
-position = Vector2( 0.375, 0 )
+position = Vector2( 0, -82 )
 shape = SubResource( 1 )
 
-[node name="TileMap" type="TileMap" parent="Pitch/Floor"]
-tile_set = SubResource( 2 )
-cell_size = Vector2( 32, 32 )
-cell_quadrant_size = 32
-cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
-format = 1
-tile_data = PoolIntArray( -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -196618, 0, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -262130, 0, 0, -262129, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -131082, 0, 0, -131081, 0, 0, -131080, 0, 0, -131079, 0, 0, -131078, 0, 0, -131077, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0, -65546, 0, 0, -65545, 0, 0, -65544, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -131061, 0, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -16, 0, 0, -15, 0, 0, -14, 0, 0, -13, 0, 0, -12, 0, 0, -11, 0, 0, -10, 0, 0, -9, 0, 0, -8, 0, 0, -7, 0, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 131056, 0, 0, 131057, 0, 0, 131058, 0, 0, 131059, 0, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 196592, 0, 0, 196593, 0, 0, 196594, 0, 0, 196595, 0, 0, 196596, 0, 0, 196597, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 262128, 0, 0, 262129, 0, 0, 262130, 0, 0, 262131, 0, 0, 262132, 0, 0, 262133, 0, 0, 262134, 0, 0, 262135, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0 )
+[node name="ColorRect" type="ColorRect" parent="Pitch/Floor"]
+margin_left = -512.0
+margin_top = -128.0
+margin_right = 512.0
+margin_bottom = -32.0
+color = Color( 0.517647, 0.517647, 0.517647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Roof" type="StaticBody2D" parent="Pitch"]
-position = Vector2( 512, -576 )
+position = Vector2( 512, -526 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/Roof"]
-position = Vector2( 0.375, 0 )
 shape = SubResource( 1 )
 
 [node name="WallLeft" type="StaticBody2D" parent="Pitch"]
-position = Vector2( 512, 544 )
+position = Vector2( 594, 544 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -76,7 +99,7 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="WallRight" type="StaticBody2D" parent="Pitch"]
-position = Vector2( 1152, 32 )
+position = Vector2( 1070, 32 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -85,42 +108,20 @@ __meta__ = {
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="SlimeLeft" parent="." instance=ExtResource( 3 )]
-position = Vector2( 256, 480 )
+[node name="GoalBoxLeft" parent="." instance=ExtResource( 1 )]
+position = Vector2( 80, 416 )
 
-[node name="SlimeRight" parent="." instance=ExtResource( 3 )]
-position = Vector2( 768, 480 )
-scale = Vector2( -1, 1 )
-UI_LEFT = "ui_left_p2"
-UI_RIGHT = "ui_right_p2"
-UI_UP = "ui_up_p2"
-UI_DOWN = "ui_down_p2"
-DIRECTION = ""
-INITIAL_TEAM_INDEX = 1
-
-[node name="Ball" parent="." instance=ExtResource( 2 )]
-position = Vector2( 512, 320 )
-
-[node name="GoalLeft" parent="." instance=ExtResource( 8 )]
-position = Vector2( 32, 440 )
-slime = "SlimeRight"
-
-[node name="GoalRight" parent="." instance=ExtResource( 8 )]
-position = Vector2( 993, 443 )
-scale = Vector2( -1, 1 )
-slime = "SlimeLeft"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 216.0
-margin_top = 280.0
-margin_right = 256.0
-margin_bottom = 320.0
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Duration" type="Timer" parent="RichTextLabel"]
+[node name="GameTimer" type="Timer" parent="."]
 wait_time = 0.1
-autostart = true
-[connection signal="timeout" from="RichTextLabel/Duration" to="RichTextLabel" method="_on_timeout"]
+
+[node name="GoalHangingIndicatorLeft" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 568 )
+
+[node name="GoalHangingTimerLeft" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="start_game" from="HUD" to="." method="_on_click_start_game"]
+[connection signal="change_team" from="SlimeLeft" to="." method="_on_SlimeLeft_change_team"]
+[connection signal="body_entered" from="GoalBoxLeft" to="." method="_on_GoalBoxLeft_body_entered"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="timeout" from="GoalHangingTimerLeft" to="." method="_on_GoalHangingTimerLeft_timeout"]

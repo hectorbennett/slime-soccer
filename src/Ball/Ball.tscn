@@ -5,9 +5,9 @@
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 10.0
-bounce = 0.6
+bounce = 0.3
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 16.0
 
 [node name="Ball" type="RigidBody2D"]
@@ -28,4 +28,4 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
