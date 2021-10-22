@@ -1,29 +1,35 @@
 extends Control
+class_name HUD
 
 signal start_game(duration)
 
-func update_left_label(team_name, score):
-	$LeftTeamLabel.text = '%s : %s' % [team_name, score]
+onready var SPLASH: Control = $Splash
+onready var LEFT_TEAM_LABEL: Label = $LeftTeamLabel
+onready var RIGHT_TEAM_LABEL: Label = $RightTeamLabel
+onready var TIMER_LABEL: Label = $TimerLabel
+
+func update_left_label(team_name: String, score: int):
+	LEFT_TEAM_LABEL.text = '%s : %s' % [team_name, score]
 	
-func update_right_label(team_name, score):
-	$RightTeamLabel.text = '%s : %s' % [score, team_name]
+func update_right_label(team_name: String, score: int):
+	RIGHT_TEAM_LABEL.text = '%s : %s' % [score, team_name]
 
 func show_splash():
-	$Splash.show()
+	SPLASH.show()
 
 func hide_splash():
-	$Splash.hide()
+	SPLASH.hide()
 	
 func show_timer():
-	$TimerLabel.show();
+	TIMER_LABEL.show();
 
 func hide_timer():
-	$TimerLabel.hide();
+	TIMER_LABEL.hide();
 
 func show_game_over():
 	pass
 	
-func update_timer(ticks):
+func update_timer(ticks: int):
 	var ms = (ticks % 10)
 	var s = (ticks / 10) % 60
 	var m = ticks / 600
@@ -32,7 +38,7 @@ func update_timer(ticks):
 	var S = '%0*d' % [2, s]
 	var MS = '%0*d' % [2, ms]
 
-	$TimerLabel.set_text('{m}:{s}:{ms}'.format({'m': M, 's': S, 'ms': MS}))
+	TIMER_LABEL.set_text('{m}:{s}:{ms}'.format({'m': M, 's': S, 'ms': MS}))
 
 func _on_1Min_button_up():
 	emit_signal('start_game', 600)

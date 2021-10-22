@@ -120,6 +120,7 @@ position = Vector2( 0, 568 )
 [node name="GoalHangingTimerLeft" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
 [connection signal="start_game" from="HUD" to="." method="_on_click_start_game"]
 [connection signal="change_team" from="SlimeLeft" to="." method="_on_SlimeLeft_change_team"]
 [connection signal="body_entered" from="GoalBoxLeft" to="." method="_on_GoalBoxLeft_body_entered"]

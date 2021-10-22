@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Slime
 
 signal change_team
 
@@ -34,45 +35,53 @@ const TEAMS = [
 	{'name': 'Seth Efrica', 'body': 'FFFFFF', 'decoration': '27AC4A'},
 ]
 
-export var UI_LEFT = "ui_left"
-export var UI_RIGHT = "ui_right"
-export var UI_UP = "ui_up"
-export var UI_DOWN = "ui_down"
-export var DIRECTION = "right"
-export var INITIAL_TEAM_INDEX = 0
+onready var body: Sprite = $BodyTexture
+onready var eye: Sprite = $EyeTexture
+onready var decoration: Sprite = $DecorationTexture
+onready var smile: Sprite = $SmileTexture
 
-const UP = Vector2(0, -1)
-const GRAVITY = 100
-const SPEED = 500
-const JUMP_HEIGHT = 1500
+export var UI_LEFT := "ui_left"
+export var UI_RIGHT := "ui_right"
+export var UI_UP := "ui_up"
+export var UI_DOWN := "ui_down"
+export var DIRECTION := "right"
+export var INITIAL_TEAM_INDEX := 0
 
-var motion = Vector2()
-var current_team_index = 0
-var team = TEAMS[INITIAL_TEAM_INDEX]
-var score = 0
-var frozen = true
+const UP := Vector2(0, -1)
+const GRAVITY := 100
+const SPEED := 500
+const JUMP_HEIGHT := 1500
 
-func set_team(index):
+var motion := Vector2()
+var current_team_index := 0
+var team: Dictionary = TEAMS[INITIAL_TEAM_INDEX]
+var score := 0
+var frozen := true
+
+func set_team(index: int):
 	if index >= len(TEAMS):
 		index = 0
 	elif index < 0:
 		index = len(TEAMS) - 1
-	get_node("BodyTexture").modulate = Color(TEAMS[index]['body'])
-	get_node("DecorationTexture").modulate = Color(TEAMS[index]['decoration'])
+	set_sprite_color(body, Color(TEAMS[index]['body']))
+	set_sprite_color(decoration, Color(TEAMS[index]['decoration']))
 	current_team_index = index
 	team = TEAMS[index]
-	get_parent().on_score()
+	# get_parent().on_score()
 	emit_signal('change_team')
+	
+func set_sprite_color(texture: Sprite, color: Color):
+	texture.modulate = color
 
 func _ready():
 	hide_smile()
 	current_team_index = INITIAL_TEAM_INDEX
 	set_team(current_team_index)
 	if DIRECTION == "left":
-		get_node("DecorationTexture").set_flip_h(true)
-		get_node("EyeTexture").set_position(Vector2(-36, -8))
+		decoration.set_flip_h(true)
+		eye.set_position(Vector2(-36, -8))
 
-func _process(_delta):
+func _process(_delta: float):
 	_look_at_ball()
 	if frozen:
 		if Input.is_action_just_pressed(UI_UP):
@@ -80,7 +89,7 @@ func _process(_delta):
 		if Input.is_action_just_pressed(UI_DOWN):
 			set_team(current_team_index - 1)
 
-func _physics_process(_delta):
+func _physics_process(_delta: float):
 	motion.y += GRAVITY
 	if not frozen:
 		# move left and right
@@ -104,15 +113,16 @@ func _physics_process(_delta):
 func _look_at_ball():
 	pass
 	
-func stare_at(node):
-	$EyeTexture.look_at(node.position)
+func stare_at(node: RigidBody2D):
+	eye.look_at(node.position)
 
 func show_smile():
-	$SmileTexture.show()
+	smile.show()
 
 func hide_smile():
-	$SmileTexture.hide()
+	if smile:
+		smile.hide()
 
-func score_goal():
+func score():
 	score += 1
 	get_parent().on_score()
