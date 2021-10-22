@@ -22,7 +22,7 @@ func _ready():
 	$Ball.set_sleeping(true)
 	on_score()
 
-func _process(delta):
+func _process(_delta):
 	$SlimeLeft.stare_at($Ball)
 	$SlimeRight.stare_at($Ball)
 
@@ -67,7 +67,7 @@ func reset():
 	$SlimeRight.set_position(initialSlimeRightPosition)
 	$Ball.resetState = true
 
-func _on_click_start_game(duration):
+func _on_click_start_game(_duration):
 	new_game(duration)
 
 func _on_GameTimer_timeout():

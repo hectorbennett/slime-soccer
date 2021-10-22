@@ -6,7 +6,7 @@ func _ready():
 	set_color('#bada55')
 	$Timer.start()
 
-func set_color(color):
+func set_color(_color):
 	pass
 
 func start():

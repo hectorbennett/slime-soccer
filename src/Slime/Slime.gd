@@ -113,6 +113,6 @@ func show_smile():
 func hide_smile():
 	$SmileTexture.hide()
 
-func score():
+func score_goal():
 	score += 1
 	get_parent().on_score()

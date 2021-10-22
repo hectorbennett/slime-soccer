@@ -14,7 +14,7 @@ func start(minutes):
 	m = minutes
 	get_node("Duration").start()
 
-func _process(delta):
+func _process(_delta):
 	if ms < 0:
 		s -= 1
 		ms = 9
