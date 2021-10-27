@@ -12,7 +12,6 @@ onready var PROGRESS_BAR: ProgressBar = $ProgressBar
 onready var PB_STYLEBOX := StyleBoxFlat.new()
 
 
-
 func _ready() -> void:
 	PROGRESS_BAR.add_stylebox_override('fg', PB_STYLEBOX)
 	SLIME.set_team(SLIME.current_team_index)

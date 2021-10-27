@@ -1,7 +1,5 @@
 extends Node
 
-# class_name = Game
-
 const initialSlimeLeftPosition = Vector2(256, 448)
 const initialSlimeRightPosition = Vector2(768, 448)
 
@@ -76,5 +74,7 @@ func _on_GameTimer_timeout():
 		end_game()
 
 func _on_GoalHangingZoneLeft_on_timeout() -> void:
-	print('LEFT GOAL HANGING')
-	pass # Replace with function body.
+	SLIME_RIGHT.score_goal()
+
+func _on_GoalHangingZoneRight_on_timeout() -> void:
+	SLIME_LEFT.score_goal()
