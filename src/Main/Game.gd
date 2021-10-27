@@ -79,11 +79,6 @@ func _on_SlimeLeft_change_team():
 	pass
 	# $GoalHangingIndicatorLeft.set_color(SLIME_LEFT.team['decoration'])
 
-func _on_GoalBoxLeft_body_entered(body: Slime):
-	# if (body.name == 'SlimeLeft'):
-	# 	$GoalHangingIndicatorLeft.start()
-	pass # Replace with function body.
-
-func _on_GoalHangingTimerLeft_timeout():
-	print('goalhanging!')
+func _on_GoalHangingZoneLeft_on_timeout() -> void:
+	print('LEFT GOAL HANGING')
 	pass # Replace with function body.
