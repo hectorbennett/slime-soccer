@@ -8,4 +8,4 @@ onready var BALL = get_node(BallPath)
 
 func _on_Net_body_entered(body: Node) -> void:
 	if body == BALL:
-		SLIME.score()
+		SLIME.score_goal()

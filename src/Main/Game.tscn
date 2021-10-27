@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Goal/GoalHangingZone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Ball/Ball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Slime/Slime.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Main/Message.gd" type="Script" id=4]
 [ext_resource path="res://src/Main/Game.gd" type="Script" id=7]
 [ext_resource path="res://src/Goal/Goal.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/HUD/HUD.tscn" type="PackedScene" id=11]
@@ -122,6 +123,18 @@ SlimePath = NodePath("../SlimeRight")
 
 [node name="GameTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="Message" type="RichTextLabel" parent="."]
+margin_left = 344.0
+margin_top = 492.0
+margin_right = 697.0
+margin_bottom = 536.0
+text = "Saudia Arabia scores!
+Click mouse for replay..."
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="start_game" from="HUD" to="." method="_on_click_start_game"]
 [connection signal="change_team" from="SlimeLeft" to="." method="_on_SlimeLeft_change_team"]
