@@ -75,10 +75,6 @@ func _on_GameTimer_timeout():
 	if (duration - elapsed <= 0):
 		end_game()
 
-func _on_SlimeLeft_change_team():
-	pass
-	# $GoalHangingIndicatorLeft.set_color(SLIME_LEFT.team['decoration'])
-
 func _on_GoalHangingZoneLeft_on_timeout() -> void:
 	print('LEFT GOAL HANGING')
 	pass # Replace with function body.

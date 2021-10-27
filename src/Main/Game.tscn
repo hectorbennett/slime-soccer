@@ -26,6 +26,12 @@ __meta__ = {
 
 [node name="SlimeLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( 256, 448 )
+UI_LEFT = null
+UI_RIGHT = null
+UI_UP = null
+UI_DOWN = null
+DIRECTION = null
+INITIAL_TEAM_INDEX = null
 GoalHangingZone = NodePath("../GoalHangingZoneLeft")
 
 [node name="SlimeRight" parent="." instance=ExtResource( 3 )]

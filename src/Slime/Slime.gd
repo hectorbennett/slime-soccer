@@ -67,13 +67,11 @@ func set_team(index: int):
 		index = 0
 	elif index < 0:
 		index = len(TEAMS) - 1
-	set_sprite_color(body, Color(TEAMS[index]['body']))
-	set_sprite_color(decoration, Color(TEAMS[index]['decoration']))
-	print(TEAMS[index]['decoration'])
-	GOAL_HANGING_ZONE.set_colour(Color(TEAMS[index]['decoration']))
 	current_team_index = index
 	team = TEAMS[index]
-	# get_parent().on_score()
+	set_sprite_color(body, Color(team['body']))
+	set_sprite_color(decoration, Color(team['decoration']))
+	GOAL_HANGING_ZONE.set_colour(Color(team['decoration']))
 	emit_signal('change_team')
 	
 func set_sprite_color(texture: Sprite, color: Color):
@@ -88,7 +86,6 @@ func _ready():
 		eye.set_position(Vector2(-36, -8))
 
 func _process(_delta: float):
-	_look_at_ball()
 	if frozen:
 		if Input.is_action_just_pressed(UI_UP):
 			set_team(current_team_index + 1)
@@ -116,9 +113,6 @@ func _physics_process(_delta: float):
 		motion.y = 0
 	motion = move_and_slide(motion, UP)
 
-func _look_at_ball():
-	pass
-	
 func stare_at(node: RigidBody2D):
 	eye.look_at(node.position)
 
@@ -129,6 +123,6 @@ func hide_smile():
 	if smile:
 		smile.hide()
 
-func score():
+func score_goal():
 	score += 1
 	get_parent().on_score()
