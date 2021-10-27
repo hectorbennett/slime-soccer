@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/Goal/GoalHangingIndicator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Goal/GoalHangingZone.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -10,8 +9,15 @@ extents = Vector2( 80, 80 )
 extents = Vector2( 80, 80 )
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-corner_detail = 1
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0235294, 1, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
 
 [node name="GoalHangingZone" type="Area2D"]
 script = ExtResource( 2 )
@@ -33,9 +39,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GoalHangingIndicator" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 568 )
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.01
 
@@ -45,9 +48,23 @@ margin_left = -80.0
 margin_top = 120.0
 margin_right = 432.0
 margin_bottom = 128.0
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 0 )
-value = 100.0
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar2" type="ProgressBar" parent="."]
+margin_left = -80.0
+margin_top = 130.0
+margin_right = 124.0
+margin_bottom = 144.0
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 50.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false

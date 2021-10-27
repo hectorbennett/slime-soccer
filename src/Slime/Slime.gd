@@ -47,6 +47,10 @@ export var UI_DOWN := "ui_down"
 export var DIRECTION := "right"
 export var INITIAL_TEAM_INDEX := 0
 
+export(NodePath) var GoalHangingZone
+
+onready var GOAL_HANGING_ZONE = get_node(GoalHangingZone)
+
 const UP := Vector2(0, -1)
 const GRAVITY := 100
 const SPEED := 500
@@ -65,6 +69,8 @@ func set_team(index: int):
 		index = len(TEAMS) - 1
 	set_sprite_color(body, Color(TEAMS[index]['body']))
 	set_sprite_color(decoration, Color(TEAMS[index]['decoration']))
+	print(TEAMS[index]['decoration'])
+	GOAL_HANGING_ZONE.set_colour(Color(TEAMS[index]['decoration']))
 	current_team_index = index
 	team = TEAMS[index]
 	# get_parent().on_score()

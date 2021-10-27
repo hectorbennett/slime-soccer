@@ -8,7 +8,13 @@ export(NodePath) var SlimePath
 
 onready var SLIME = get_node(SlimePath)
 onready var TIMER: Timer = $Timer
-onready var PROGRESS_BAR: ProgressBar = $ProgressBar
+onready var PROGRESS_BAR: ProgressBar = $ProgressBar2
+onready var PB_STYLEBOX = PROGRESS_BAR.get("custom_styles/fg")
+
+func _ready() -> void:
+	pass
+	# print(PB_STYLEBOX)
+	# PB_STYLEBOX.bg_color = Color('ffffff')
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body == SLIME:
@@ -24,3 +30,11 @@ func _on_Timer_timeout() -> void:
 	if PROGRESS_BAR.value <= 0:
 		emit_signal("on_timeout")
 		TIMER.stop()
+		
+func set_colour(colour: Color) -> void:
+	# print('set colour')
+	# print(colour)
+	print(colour)
+	if PB_STYLEBOX:
+		# PB_STYLEBOX.add_stylebox_override('bg_color', colour)
+		PB_STYLEBOX.bg_color = colour
