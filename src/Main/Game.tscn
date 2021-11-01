@@ -46,14 +46,12 @@ position = Vector2( 512, 288 )
 
 [node name="GoalLeft" parent="." instance=ExtResource( 8 )]
 position = Vector2( 32, 408 )
-SlimePath = NodePath("../SlimeRight")
 BallPath = NodePath("../Ball")
 
 [node name="GoalRight" parent="." instance=ExtResource( 8 )]
 position = Vector2( 992, 408 )
 rotation = -3.14159
 scale = Vector2( 1, -1 )
-SlimePath = NodePath("../SlimeLeft")
 BallPath = NodePath("../Ball")
 
 [node name="Pitch" type="Node2D" parent="."]
@@ -138,6 +136,9 @@ __meta__ = {
 
 [connection signal="start_game" from="HUD" to="." method="_on_click_start_game"]
 [connection signal="change_team" from="SlimeLeft" to="." method="_on_SlimeLeft_change_team"]
+[connection signal="change_team" from="SlimeRight" to="." method="_on_SlimeRight_change_team"]
+[connection signal="score" from="GoalLeft" to="." method="_on_GoalLeft_score"]
+[connection signal="score" from="GoalRight" to="." method="_on_GoalRight_score"]
 [connection signal="on_timeout" from="GoalHangingZoneLeft" to="." method="_on_GoalHangingZoneLeft_on_timeout"]
 [connection signal="on_timeout" from="GoalHangingZoneRight" to="." method="_on_GoalHangingZoneRight_on_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]

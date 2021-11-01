@@ -5,7 +5,6 @@ const initialSlimeRightPosition = Vector2(768, 448)
 
 var duration := 0
 var elapsed := 0
-var gameInProgress := false
 
 onready var GAME_TIMER: Timer = $GameTimer
 onready var HUD: HUD = $HUD
@@ -28,7 +27,7 @@ func new_game(d) -> void:
 	reset()
 	duration = d
 	elapsed = 0
-	gameInProgress = true
+	Globals.gameInProgress = true
 	HUD.hide_splash()
 	HUD.show_timer()
 	GAME_TIMER.start()
@@ -54,12 +53,12 @@ func end_game() -> void:
 	HUD.show_splash()
 	HUD.hide_timer()
 
-func on_score() -> void:
+func after_score() -> void:
 	HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
 	HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)
-	if (SLIME_LEFT.score > SLIME_RIGHT.score + 3):
+	if (SLIME_LEFT.score >= SLIME_RIGHT.score + 3):
 		SLIME_LEFT.show_smile()
-	elif (SLIME_RIGHT.score > SLIME_LEFT.score + 3):
+	elif (SLIME_RIGHT.score >= SLIME_LEFT.score + 3):
 		SLIME_RIGHT.show_smile()
 	else:
 		SLIME_LEFT.hide_smile()
@@ -67,6 +66,8 @@ func on_score() -> void:
 	reset()
 
 func reset() -> void:
+	HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
+	HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)
 	SLIME_LEFT.set_position(initialSlimeLeftPosition)
 	SLIME_RIGHT.set_position(initialSlimeRightPosition)
 	BALL.resetState = true
@@ -82,8 +83,28 @@ func _on_GameTimer_timeout() -> void:
 
 func _on_GoalHangingZoneLeft_on_timeout() -> void:
 	yield(MESSAGE.display_message("This is a message"), "completed")
-	SLIME_RIGHT.score_goal()
+	SLIME_RIGHT.score += 1
+	after_score()
 
 func _on_GoalHangingZoneRight_on_timeout() -> void:
 	yield(MESSAGE.display_message("This is a message"), "completed")
-	SLIME_LEFT.score_goal()
+	SLIME_LEFT.score += 1
+	after_score()
+
+func _on_GoalLeft_score() -> void:
+	yield(MESSAGE.display_message("Right Slime scored"), "completed")
+	SLIME_RIGHT.score += 1
+	after_score()
+
+func _on_GoalRight_score() -> void:
+	yield(MESSAGE.display_message("Left Slime scored"), "completed")
+	SLIME_RIGHT.score += 1
+	after_score()
+
+func _on_SlimeLeft_change_team() -> void:
+	if HUD:
+		HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
+
+func _on_SlimeRight_change_team() -> void:
+	if HUD:
+		HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)

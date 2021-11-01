@@ -86,7 +86,7 @@ func _ready():
 		eye.set_position(Vector2(-36, -8))
 
 func _process(_delta: float):
-	if frozen:
+	if frozen and not Globals.gameInProgress:
 		if Input.is_action_just_pressed(UI_UP):
 			set_team(current_team_index + 1)
 		if Input.is_action_just_pressed(UI_DOWN):
@@ -122,7 +122,3 @@ func show_smile():
 func hide_smile():
 	if smile:
 		smile.hide()
-
-func score_goal():
-	score += 1
-	get_parent().on_score()

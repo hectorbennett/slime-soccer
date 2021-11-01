@@ -36,6 +36,10 @@ config/name="Slime Soccer"
 run/main_scene="res://src/Main/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://src/Main/Globals.gd"
+
 [debug]
 
 gdscript/warnings/unused_class_variable=true
