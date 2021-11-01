@@ -47,6 +47,10 @@ export var UI_DOWN := "ui_down"
 export var DIRECTION := "right"
 export var INITIAL_TEAM_INDEX := 0
 
+export(NodePath) var GoalHangingZone
+
+onready var GOAL_HANGING_ZONE = get_node(GoalHangingZone)
+
 const UP := Vector2(0, -1)
 const GRAVITY := 100
 const SPEED := 500
@@ -63,11 +67,11 @@ func set_team(index: int):
 		index = 0
 	elif index < 0:
 		index = len(TEAMS) - 1
-	set_sprite_color(body, Color(TEAMS[index]['body']))
-	set_sprite_color(decoration, Color(TEAMS[index]['decoration']))
 	current_team_index = index
 	team = TEAMS[index]
-	# get_parent().on_score()
+	set_sprite_color(body, Color(team['body']))
+	set_sprite_color(decoration, Color(team['decoration']))
+	GOAL_HANGING_ZONE.set_colour(Color(team['decoration']))
 	emit_signal('change_team')
 	
 func set_sprite_color(texture: Sprite, color: Color):
@@ -82,8 +86,7 @@ func _ready():
 		eye.set_position(Vector2(-36, -8))
 
 func _process(_delta: float):
-	_look_at_ball()
-	if frozen:
+	if frozen and not Globals.gameInProgress:
 		if Input.is_action_just_pressed(UI_UP):
 			set_team(current_team_index + 1)
 		if Input.is_action_just_pressed(UI_DOWN):
@@ -110,9 +113,6 @@ func _physics_process(_delta: float):
 		motion.y = 0
 	motion = move_and_slide(motion, UP)
 
-func _look_at_ball():
-	pass
-	
 func stare_at(node: RigidBody2D):
 	eye.look_at(node.position)
 
@@ -122,7 +122,3 @@ func show_smile():
 func hide_smile():
 	if smile:
 		smile.hide()
-
-func score():
-	score += 1
-	get_parent().on_score()

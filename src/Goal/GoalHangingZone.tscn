@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Goal/GoalHangingZone.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 80, 80 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 80, 80 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[node name="GoalHangingZone" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="ZoneArea" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="ZoneArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneArea/Area2D"]
+shape = SubResource( 2 )
+
+[node name="ZoneLine" type="ColorRect" parent="."]
+margin_left = -80.0
+margin_top = 68.0
+margin_right = 80.0
+margin_bottom = 72.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+margin_left = -80.0
+margin_top = 130.0
+margin_right = 432.0
+margin_bottom = 133.0
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+value = 100.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="ZoneArea/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="ZoneArea/Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

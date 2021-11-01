@@ -1,3 +1,11 @@
 extends Node2D
 
-export var slime = ''
+signal score
+
+export(NodePath) var BallPath
+
+onready var BALL = get_node(BallPath)
+
+func _on_Net_body_entered(body: Node) -> void:
+	if body == BALL:
+		emit_signal("score")
