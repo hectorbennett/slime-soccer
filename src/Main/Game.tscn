@@ -110,6 +110,9 @@ wait_time = 0.1
 
 [node name="Gui" parent="." instance=ExtResource( 11 )]
 
+[connection signal="game_ended" from="." to="Gui" method="_on_Game_game_ended"]
+[connection signal="game_started" from="." to="Ball" method="_on_Game_game_started"]
+[connection signal="game_started" from="." to="Gui" method="_on_Game_game_started"]
 [connection signal="change_team" from="SlimeLeft" to="Gui" method="_on_SlimeLeft_change_team"]
 [connection signal="change_team" from="SlimeRight" to="Gui" method="_on_SlimeRight_change_team"]
 [connection signal="goal_hanged" from="GoalLeft" to="." method="_on_GoalLeft_goal_hanged"]

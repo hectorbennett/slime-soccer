@@ -1,3 +1,5 @@
+# todo: set direction export to be enum
+
 extends KinematicBody2D
 class_name Slime
 

@@ -44,6 +44,14 @@ func update_timer(ticks: int):
 
 	$TimerLabel.set_text('{m}:{s}:{ms}'.format({'m': M, 's': S, 'ms': MS}))
 
+func display_message(message: String) -> void:
+	get_tree().paused = true
+	$Message.bbcode_text = '[center]{message}[/center]'.format({'message': message})
+	yield(get_tree().create_timer(2.0), "timeout")
+	$Message.text = ""
+	get_tree().paused = false
+	emit_signal("message_completed")
+
 func _on_1Min_button_up():
 	emit_signal('start_game', 600)
 
@@ -83,15 +91,6 @@ func _on_Game_game_ended() -> void:
 	show_splash()
 	hide_timer()
 	
-func display_message(message: String) -> void:
-	get_tree().paused = true
-	$Message.bbcode_text = '[center]{message}[/center]'.format({'message': message})
-	yield(get_tree().create_timer(2.0), "timeout")
-	$Message.text = ""
-	get_tree().paused = false
-	emit_signal("message_completed")
-
-
 func _on_GoalLeft_goal_hanging_value_changed(value) -> void:
 	$LeftGoalHangingProgressBar.value = value
 	pass # Replace with function body.

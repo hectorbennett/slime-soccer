@@ -25,6 +25,5 @@ func _on_Game_game_started() -> void:
 	show()
 	set_mode(RigidBody2D.MODE_RIGID)
 
-
 func _on_Gui_message_completed() -> void:
 	reset()

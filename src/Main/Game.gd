@@ -1,6 +1,5 @@
 extends Node
 
-signal score_changed
 signal game_started
 signal game_ended
 
