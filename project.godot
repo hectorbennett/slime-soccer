@@ -15,9 +15,9 @@ _global_script_classes=[ {
 "path": "res://src/Ball/Ball.gd"
 }, {
 "base": "Control",
-"class": "HUD",
+"class": "Gui",
 "language": "GDScript",
-"path": "res://src/HUD/HUD.gd"
+"path": "res://src/Gui/Gui.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Slime",
@@ -26,7 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ball": "",
-"HUD": "",
+"Gui": "",
 "Slime": ""
 }
 

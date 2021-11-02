@@ -1,110 +1,48 @@
 extends Node
 
-const initialSlimeLeftPosition = Vector2(256, 448)
-const initialSlimeRightPosition = Vector2(768, 448)
+signal score_changed
+signal game_started
+signal game_ended
 
 var duration := 0
 var elapsed := 0
 
-onready var GAME_TIMER: Timer = $GameTimer
-onready var HUD: HUD = $HUD
-onready var BALL: Ball = $Ball
-onready var SLIME_LEFT: Slime = $SlimeLeft
-onready var SLIME_RIGHT: Slime = $SlimeRight
-onready var MESSAGE: RichTextLabel = $Message
+onready var GUI: Gui = $Gui
 
 func _ready() -> void:
-	reset()
-	HUD.hide_timer()
-	BALL.hide()
-	freeze_game()
-
-func _process(_delta) -> void:
-	SLIME_LEFT.stare_at(BALL)
-	SLIME_RIGHT.stare_at(BALL)
+	get_tree().paused = true
 
 func new_game(d) -> void:
-	reset()
+	get_tree().paused = false
 	duration = d
 	elapsed = 0
+	Globals.left_score = 0
+	Globals.right_score = 0
 	Globals.gameInProgress = true
-	HUD.hide_splash()
-	HUD.show_timer()
-	GAME_TIMER.start()
-	BALL.show()
-	SLIME_LEFT.score = 0
-	SLIME_RIGHT.score = 0
-	unfreeze_game()
-
-func freeze_game() -> void:
-	GAME_TIMER.paused = true
-	SLIME_LEFT.frozen = true
-	SLIME_RIGHT.frozen = true
-	BALL.set_sleeping(true)
+	$GameTimer.start()
+	emit_signal("game_started")
 	
-func unfreeze_game() -> void:
-	GAME_TIMER.paused = false
-	SLIME_LEFT.frozen = false
-	SLIME_RIGHT.frozen = false
-	BALL.set_sleeping(false)
-
 func end_game() -> void:
-	GAME_TIMER.stop()
-	HUD.show_splash()
-	HUD.hide_timer()
+	emit_signal("game_ended")
+	$GameTimer.stop()
 
-func after_score() -> void:
-	HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
-	HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)
-	if (SLIME_LEFT.score >= SLIME_RIGHT.score + 3):
-		SLIME_LEFT.show_smile()
-	elif (SLIME_RIGHT.score >= SLIME_LEFT.score + 3):
-		SLIME_RIGHT.show_smile()
-	else:
-		SLIME_LEFT.hide_smile()
-		SLIME_RIGHT.hide_smile()
-	reset()
-
-func reset() -> void:
-	HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
-	HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)
-	SLIME_LEFT.set_position(initialSlimeLeftPosition)
-	SLIME_RIGHT.set_position(initialSlimeRightPosition)
-	BALL.resetState = true
-
-func _on_click_start_game(d: int) -> void:
+func _on_Gui_start_game(d: int) -> void:
 	new_game(d)
 
 func _on_GameTimer_timeout() -> void:
 	elapsed += 1
-	HUD.update_timer(duration - elapsed)
+	GUI.update_timer(duration - elapsed)
 	if (duration - elapsed <= 0):
 		end_game()
 
-func _on_GoalHangingZoneLeft_on_timeout() -> void:
-	yield(MESSAGE.display_message("This is a message"), "completed")
-	SLIME_RIGHT.score += 1
-	after_score()
+func _on_GoalLeft_scored() -> void:
+	Globals.right_score += 1
+	
+func _on_GoalRight_scored() -> void:
+	Globals.left_score += 1
 
-func _on_GoalHangingZoneRight_on_timeout() -> void:
-	yield(MESSAGE.display_message("This is a message"), "completed")
-	SLIME_LEFT.score += 1
-	after_score()
+func _on_GoalLeft_goal_hanged() -> void:
+	Globals.right_score += 1
 
-func _on_GoalLeft_score() -> void:
-	yield(MESSAGE.display_message("Right Slime scored"), "completed")
-	SLIME_RIGHT.score += 1
-	after_score()
-
-func _on_GoalRight_score() -> void:
-	yield(MESSAGE.display_message("Left Slime scored"), "completed")
-	SLIME_RIGHT.score += 1
-	after_score()
-
-func _on_SlimeLeft_change_team() -> void:
-	if HUD:
-		HUD.update_left_label(SLIME_LEFT.team['name'], SLIME_LEFT.score)
-
-func _on_SlimeRight_change_team() -> void:
-	if HUD:
-		HUD.update_right_label(SLIME_RIGHT.team['name'], SLIME_RIGHT.score)
+func _on_GoalRight_goal_hanged() -> void:
+	Globals.left_score += 1

@@ -1,13 +1,31 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/theme/theme.tres" type="Theme" id=1]
-[ext_resource path="res://src/HUD/HUD.gd" type="Script" id=2]
+[ext_resource path="res://src/Gui/Gui.gd" type="Script" id=3]
 
-[node name="HUD" type="Control"]
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends RichTextLabel
+
+func display_message(message: String) -> void:
+	self.text = message
+	get_tree().get_root().get_node(\"Game\").freeze_game()
+	yield(get_tree().create_timer(2.0), \"timeout\")
+	self.text = \"\"
+	get_tree().get_root().get_node(\"Game\").unfreeze_game()
+"
+
+[node name="GUI" type="Control"]
+pause_mode = 2
 margin_right = 1024.0
 margin_bottom = 576.0
 theme = ExtResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -132,6 +150,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LeftGoalHangingProgressBar" type="ProgressBar" parent="."]
+margin_top = 520.0
+margin_right = 512.0
+margin_bottom = 523.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+value = 100.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TimerLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -144,6 +174,21 @@ margin_bottom = -220.0
 text = "01:00:00"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -176.5
+margin_top = -82.0
+margin_right = 176.5
+margin_bottom = -24.0
+bbcode_enabled = true
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

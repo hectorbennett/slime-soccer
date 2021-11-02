@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/Goal/GoalHangingZone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Ball/Ball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Slime/Slime.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Main/Message.gd" type="Script" id=4]
 [ext_resource path="res://src/Main/Game.gd" type="Script" id=7]
 [ext_resource path="res://src/Goal/Goal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/HUD/HUD.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/Gui/Gui.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 46 )
@@ -23,11 +21,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HUD" parent="." instance=ExtResource( 11 )]
-
 [node name="SlimeLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( 256, 448 )
-GoalHangingZone = NodePath("../GoalHangingZoneLeft")
 
 [node name="SlimeRight" parent="." instance=ExtResource( 3 )]
 position = Vector2( 768, 448 )
@@ -39,20 +34,10 @@ UI_UP = "ui_up_p2"
 UI_DOWN = "ui_down_p2"
 DIRECTION = ""
 INITIAL_TEAM_INDEX = 1
-GoalHangingZone = NodePath("../GoalHangingZoneRight")
+INITIAL_POSITION = Vector2( 256, 768 )
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 288 )
-
-[node name="GoalLeft" parent="." instance=ExtResource( 8 )]
-position = Vector2( 32, 408 )
-BallPath = NodePath("../Ball")
-
-[node name="GoalRight" parent="." instance=ExtResource( 8 )]
-position = Vector2( 992, 408 )
-rotation = -3.14159
-scale = Vector2( 1, -1 )
-BallPath = NodePath("../Ball")
 
 [node name="Pitch" type="Node2D" parent="."]
 position = Vector2( 0, -32 )
@@ -110,35 +95,31 @@ __meta__ = {
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="GoalHangingZoneLeft" parent="." instance=ExtResource( 1 )]
-position = Vector2( 80, 416 )
+[node name="GoalLeft" parent="." instance=ExtResource( 8 )]
+position = Vector2( 32, 408 )
 SlimePath = NodePath("../SlimeLeft")
 
-[node name="GoalHangingZoneRight" parent="." instance=ExtResource( 1 )]
-position = Vector2( 944, 416 )
-scale = Vector2( -1, 1 )
+[node name="GoalRight" parent="." instance=ExtResource( 8 )]
+position = Vector2( 992, 408 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
 SlimePath = NodePath("../SlimeRight")
 
 [node name="GameTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="Message" type="RichTextLabel" parent="."]
-margin_left = 344.0
-margin_top = 492.0
-margin_right = 697.0
-margin_bottom = 536.0
-text = "Saudia Arabia scores!
-Click mouse for replay..."
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Gui" parent="." instance=ExtResource( 11 )]
 
-[connection signal="start_game" from="HUD" to="." method="_on_click_start_game"]
-[connection signal="change_team" from="SlimeLeft" to="." method="_on_SlimeLeft_change_team"]
-[connection signal="change_team" from="SlimeRight" to="." method="_on_SlimeRight_change_team"]
-[connection signal="score" from="GoalLeft" to="." method="_on_GoalLeft_score"]
-[connection signal="score" from="GoalRight" to="." method="_on_GoalRight_score"]
-[connection signal="on_timeout" from="GoalHangingZoneLeft" to="." method="_on_GoalHangingZoneLeft_on_timeout"]
-[connection signal="on_timeout" from="GoalHangingZoneRight" to="." method="_on_GoalHangingZoneRight_on_timeout"]
+[connection signal="change_team" from="SlimeLeft" to="Gui" method="_on_SlimeLeft_change_team"]
+[connection signal="change_team" from="SlimeRight" to="Gui" method="_on_SlimeRight_change_team"]
+[connection signal="goal_hanged" from="GoalLeft" to="." method="_on_GoalLeft_goal_hanged"]
+[connection signal="goal_hanging_value_changed" from="GoalLeft" to="Gui" method="_on_GoalLeft_goal_hanging_value_changed"]
+[connection signal="scored" from="GoalLeft" to="." method="_on_GoalLeft_scored"]
+[connection signal="scored" from="GoalLeft" to="Gui" method="_on_GoalLeft_scored"]
+[connection signal="goal_hanged" from="GoalRight" to="." method="_on_GoalRight_goal_hanged"]
+[connection signal="scored" from="GoalRight" to="." method="_on_GoalRight_scored"]
+[connection signal="scored" from="GoalRight" to="Gui" method="_on_GoalRight_scored"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="message_completed" from="Gui" to="SlimeLeft" method="_on_Gui_message_completed"]
+[connection signal="message_completed" from="Gui" to="Ball" method="_on_Gui_message_completed"]
+[connection signal="start_game" from="Gui" to="." method="_on_Gui_start_game"]
