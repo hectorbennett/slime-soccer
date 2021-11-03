@@ -154,19 +154,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Message" type="RichTextLabel" parent="."]
+[node name="Message" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -176.5
-margin_top = -85.0
-margin_right = 176.5
+margin_left = -102.0
+margin_top = -96.0
+margin_right = 102.0
 margin_bottom = -27.0
-bbcode_enabled = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "This is a label"
+align = 1
+valign = 1
 
 [node name="TimerLabel" type="Label" parent="."]
 anchor_left = 0.5
