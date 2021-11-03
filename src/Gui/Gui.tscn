@@ -14,9 +14,9 @@ __meta__ = {
 }
 
 [node name="LeftGoalHangingProgressBar" type="ProgressBar" parent="."]
-margin_top = 520.0
+margin_top = 552.0
 margin_right = 512.0
-margin_bottom = 523.0
+margin_bottom = 555.0
 value = 100.0
 percent_visible = false
 __meta__ = {
@@ -25,9 +25,9 @@ __meta__ = {
 
 [node name="RightGoalHangingProgressBar" type="ProgressBar" parent="."]
 margin_left = 512.0
-margin_top = 520.0
+margin_top = 552.0
 margin_right = 1024.0
-margin_bottom = 523.0
+margin_bottom = 555.0
 value = 100.0
 percent_visible = false
 __meta__ = {
@@ -160,9 +160,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -176.5
-margin_top = -82.0
+margin_top = -85.0
 margin_right = 176.5
-margin_bottom = -24.0
+margin_bottom = -27.0
 bbcode_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
