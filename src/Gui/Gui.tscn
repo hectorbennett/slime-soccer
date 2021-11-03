@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/Gui/Gui.gd" type="Script" id=3]
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="GUI" type="Control"]
 pause_mode = 2
@@ -23,8 +17,6 @@ __meta__ = {
 margin_top = 520.0
 margin_right = 512.0
 margin_bottom = 523.0
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
 value = 100.0
 percent_visible = false
 __meta__ = {
@@ -36,8 +28,6 @@ margin_left = 512.0
 margin_top = 520.0
 margin_right = 1024.0
 margin_bottom = 523.0
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
 value = 100.0
 percent_visible = false
 __meta__ = {

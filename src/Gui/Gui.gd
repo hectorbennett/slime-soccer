@@ -11,14 +11,21 @@ func update_left_label():
 	var team_name = $"../SlimeLeft".team['name']
 	var score = Globals.left_score
 	$LeftTeamLabel.text = '%s : %s' % [team_name, score]
-	
+
 func update_right_label():
 	var team_name = $"../SlimeRight".team['name']
 	var score = Globals.right_score
 	$RightTeamLabel.text = '%s : %s' % [team_name, score]
-	
+
 func update_left_goal_hanging_progress_bar():
-	pass
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = Color($"../SlimeLeft".team['decoration'])
+	$LeftGoalHangingProgressBar.add_stylebox_override('fg', stylebox)
+
+func update_right_goal_hanging_progress_bar():
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = Color($"../SlimeRight".team['decoration'])
+	$RightGoalHangingProgressBar.add_stylebox_override('fg', stylebox)
 
 func show_splash():
 	$Splash.show()
@@ -69,6 +76,7 @@ func _on_SlimeLeft_change_team() -> void:
 	update_left_label()
 
 func _on_SlimeRight_change_team() -> void:
+	update_right_goal_hanging_progress_bar()
 	update_right_label()
 
 func _on_GoalLeft_scored() -> void:
@@ -106,6 +114,3 @@ func _on_GoalLeft_goal_hanging_value_changed(value) -> void:
 
 func _on_GoalRight_goal_hanging_value_changed(value) -> void:
 	$RightGoalHangingProgressBar.value = value
-
-
-

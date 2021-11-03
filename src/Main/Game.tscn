@@ -126,6 +126,7 @@ wait_time = 0.1
 [connection signal="scored" from="GoalRight" to="." method="_on_GoalRight_scored"]
 [connection signal="scored" from="GoalRight" to="Gui" method="_on_GoalRight_scored"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="message_completed" from="Gui" to="." method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="SlimeLeft" method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="SlimeRight" method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="Ball" method="_on_Gui_message_completed"]

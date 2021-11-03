@@ -24,6 +24,15 @@ func new_game(d) -> void:
 func end_game() -> void:
 	emit_signal("game_ended")
 	$GameTimer.stop()
+	
+func set_smiles() -> void:
+	if Globals.left_score >= Globals.right_score + 3:
+		$SlimeLeft.show_smile()
+	elif Globals.right_score >= Globals.left_score + 3:
+		$SlimeRight.show_smile()
+	else:
+		$SlimeLeft.hide_smile()
+		$SlimeRight.hide_smile()
 
 func _on_Gui_start_game(d: int) -> void:
 	new_game(d)
@@ -45,3 +54,6 @@ func _on_GoalLeft_goal_hanged() -> void:
 
 func _on_GoalRight_goal_hanged() -> void:
 	Globals.left_score += 1
+
+func _on_Gui_message_completed() -> void:
+	set_smiles()
