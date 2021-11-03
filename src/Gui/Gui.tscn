@@ -19,6 +19,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LeftGoalHangingProgressBar" type="ProgressBar" parent="."]
+margin_top = 520.0
+margin_right = 512.0
+margin_bottom = 523.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+value = 100.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightGoalHangingProgressBar" type="ProgressBar" parent="."]
+margin_left = 512.0
+margin_top = 520.0
+margin_right = 1024.0
+margin_bottom = 523.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+value = 100.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Splash" type="Control" parent="."]
 margin_left = -0.176758
 margin_right = 1023.82
@@ -139,14 +164,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LeftGoalHangingProgressBar" type="ProgressBar" parent="."]
-margin_top = 520.0
-margin_right = 512.0
-margin_bottom = 523.0
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
-value = 100.0
-percent_visible = false
+[node name="Message" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -176.5
+margin_top = -82.0
+margin_right = 176.5
+margin_bottom = -24.0
+bbcode_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -163,20 +190,6 @@ margin_bottom = -220.0
 text = "01:00:00"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Message" type="RichTextLabel" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -176.5
-margin_top = -82.0
-margin_right = 176.5
-margin_bottom = -24.0
-bbcode_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

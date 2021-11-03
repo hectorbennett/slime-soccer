@@ -34,7 +34,7 @@ UI_UP = "ui_up_p2"
 UI_DOWN = "ui_down_p2"
 DIRECTION = ""
 INITIAL_TEAM_INDEX = 1
-INITIAL_POSITION = Vector2( 256, 768 )
+INITIAL_POSITION = Vector2( 768, 448 )
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 288 )
@@ -116,13 +116,17 @@ wait_time = 0.1
 [connection signal="change_team" from="SlimeLeft" to="Gui" method="_on_SlimeLeft_change_team"]
 [connection signal="change_team" from="SlimeRight" to="Gui" method="_on_SlimeRight_change_team"]
 [connection signal="goal_hanged" from="GoalLeft" to="." method="_on_GoalLeft_goal_hanged"]
+[connection signal="goal_hanged" from="GoalLeft" to="Gui" method="_on_GoalLeft_goal_hanged"]
 [connection signal="goal_hanging_value_changed" from="GoalLeft" to="Gui" method="_on_GoalLeft_goal_hanging_value_changed"]
 [connection signal="scored" from="GoalLeft" to="." method="_on_GoalLeft_scored"]
 [connection signal="scored" from="GoalLeft" to="Gui" method="_on_GoalLeft_scored"]
 [connection signal="goal_hanged" from="GoalRight" to="." method="_on_GoalRight_goal_hanged"]
+[connection signal="goal_hanged" from="GoalRight" to="Gui" method="_on_GoalRight_goal_hanged"]
+[connection signal="goal_hanging_value_changed" from="GoalRight" to="Gui" method="_on_GoalRight_goal_hanging_value_changed"]
 [connection signal="scored" from="GoalRight" to="." method="_on_GoalRight_scored"]
 [connection signal="scored" from="GoalRight" to="Gui" method="_on_GoalRight_scored"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
 [connection signal="message_completed" from="Gui" to="SlimeLeft" method="_on_Gui_message_completed"]
+[connection signal="message_completed" from="Gui" to="SlimeRight" method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="Ball" method="_on_Gui_message_completed"]
 [connection signal="start_game" from="Gui" to="." method="_on_Gui_start_game"]
