@@ -15,8 +15,17 @@ func _ready() -> void:
 	
 func _input(event):
 	if Input.is_action_pressed("ui_cancel") and Globals.gameInProgress:
-		get_tree().paused = not get_tree().paused
-		emit_signal("game_paused" if get_tree().paused else "game_unpaused")
+		toggle_pause()
+		
+func toggle_pause():
+	if Globals.isPaused and get_tree().paused:
+		get_tree().paused = false
+		emit_signal("game_unpaused")
+		Globals.isPaused = false
+	elif not Globals.isPaused and not get_tree().paused:
+		get_tree().paused = true
+		emit_signal("game_paused")
+		Globals.isPaused = true
 
 func new_game(d) -> void:
 	get_tree().paused = false

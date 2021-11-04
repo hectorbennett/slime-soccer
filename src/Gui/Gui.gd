@@ -49,7 +49,8 @@ func display_message(message: String) -> void:
 	$Message.text = message
 	yield(get_tree().create_timer(2.0), "timeout")
 	$Message.text = ""
-	get_tree().paused = false
+	if not Globals.isPaused:
+		get_tree().paused = false
 	emit_signal("message_completed")
 
 func _on_1Min_button_up():

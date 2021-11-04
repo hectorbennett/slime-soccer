@@ -2,6 +2,7 @@
 extends Node
 
 var gameInProgress := false
+var isPaused := false
 var left_score := 0
 var right_score := 0
 
