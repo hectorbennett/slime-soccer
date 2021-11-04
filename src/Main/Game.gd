@@ -40,6 +40,7 @@ func new_game(d) -> void:
 func end_game() -> void:
 	emit_signal("game_ended")
 	$GameTimer.stop()
+	get_tree().paused = true
 	
 func set_smiles() -> void:
 	if Globals.left_score >= Globals.right_score + 3:

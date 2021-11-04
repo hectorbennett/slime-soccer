@@ -54,7 +54,7 @@ func display_message(message: String) -> void:
 	emit_signal("message_completed")
 
 func _on_1Min_button_up():
-	emit_signal('start_game', 200)
+	emit_signal('start_game', 100)
 
 func _on_2Min_button_down():
 	emit_signal('start_game', 1200)
@@ -103,7 +103,13 @@ func _on_Game_game_started() -> void:
 func _on_Game_game_ended() -> void:
 	$Splash.show()
 	$TimerLabel.hide();
-	show_default_message()
+
+	$Message.text = "And that's the final whistle!\n{left_team} ({left_score})     {right_team} ({right_score})".format({
+		'left_team': $"../SlimeLeft".team['name'],
+		'left_score': Globals.left_score,
+		'right_team': $"../SlimeRight".team['name'],
+		'right_score': Globals.right_score,
+	})
 	
 func _on_GoalLeft_goal_hanging_value_changed(value) -> void:
 	$LeftGoalHangingProgressBar.value = value
