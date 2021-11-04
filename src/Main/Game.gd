@@ -2,6 +2,8 @@ extends Node
 
 signal game_started
 signal game_ended
+signal game_paused
+signal game_unpaused
 
 var duration := 0
 var elapsed := 0
@@ -10,6 +12,11 @@ onready var GUI: Gui = $Gui
 
 func _ready() -> void:
 	get_tree().paused = true
+	
+func _input(event):
+	if Input.is_action_pressed("ui_cancel") and Globals.gameInProgress:
+		get_tree().paused = not get_tree().paused
+		emit_signal("game_paused" if get_tree().paused else "game_unpaused")
 
 func new_game(d) -> void:
 	get_tree().paused = false

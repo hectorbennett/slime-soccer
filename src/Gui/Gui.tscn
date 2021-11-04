@@ -183,6 +183,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PausedLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -169.0
+margin_top = -154.5
+margin_right = 169.0
+margin_bottom = 58.5
+text = "Game paused"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
 [connection signal="button_up" from="Splash/Menu/1Min" to="." method="_on_1Min_button_up"]
 [connection signal="button_down" from="Splash/Menu/2Min" to="." method="_on_2Min_button_down"]
 [connection signal="button_up" from="Splash/Menu/4Min" to="." method="_on_4Min_button_up"]

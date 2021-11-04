@@ -6,6 +6,7 @@ signal message_completed
 
 func _ready() -> void:
 	$TimerLabel.hide()
+	$PausedLabel.hide()
 	show_default_message()
 	
 func show_default_message() -> void:
@@ -108,3 +109,9 @@ func _on_GoalLeft_goal_hanging_value_changed(value) -> void:
 
 func _on_GoalRight_goal_hanging_value_changed(value) -> void:
 	$RightGoalHangingProgressBar.value = value
+
+func _on_Game_game_paused() -> void:
+	$PausedLabel.show()
+
+func _on_Game_game_unpaused() -> void:
+	$PausedLabel.hide()
