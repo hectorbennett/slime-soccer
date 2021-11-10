@@ -9,19 +9,22 @@ func _ready() -> void:
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	if resetState:
+		
 		set_mode(RigidBody2D.MODE_STATIC)
 		state.transform = Transform2D(0.0, initialPosition)
 		state.linear_velocity = Vector2(0,0)
 		state.angular_velocity = 0
 		resetState = false
-		set_mode(RigidBody2D.MODE_RIGID)
 
 func reset() -> void:
 	resetState = true
+	set_mode(RigidBody2D.MODE_RIGID)
+	
+	
 
 func _on_Game_game_started() -> void:
 	show()
-	set_mode(RigidBody2D.MODE_RIGID)
+	reset()
 
 func _on_Gui_message_completed() -> void:
 	reset()

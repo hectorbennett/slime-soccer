@@ -89,8 +89,14 @@ func show_smile():
 func hide_smile():
 	if smile:
 		smile.hide()
-
-func _on_Gui_message_completed() -> void:
+		
+func reset() -> void:
 	set_position(INITIAL_POSITION)
 	motion.x = 0
-	motion.y = 0
+	motion.y = 0	
+
+func _on_Gui_message_completed() -> void:
+	reset()
+
+func _on_Game_game_started() -> void:
+	reset()

@@ -114,6 +114,7 @@ wait_time = 0.1
 
 [connection signal="game_ended" from="." to="Gui" method="_on_Game_game_ended"]
 [connection signal="game_paused" from="." to="Gui" method="_on_Game_game_paused"]
+[connection signal="game_started" from="." to="SlimeLeft" method="_on_Game_game_started"]
 [connection signal="game_started" from="." to="Ball" method="_on_Game_game_started"]
 [connection signal="game_started" from="." to="Gui" method="_on_Game_game_started"]
 [connection signal="game_unpaused" from="." to="Gui" method="_on_Game_game_unpaused"]
@@ -134,4 +135,5 @@ wait_time = 0.1
 [connection signal="message_completed" from="Gui" to="SlimeLeft" method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="SlimeRight" method="_on_Gui_message_completed"]
 [connection signal="message_completed" from="Gui" to="Ball" method="_on_Gui_message_completed"]
+[connection signal="message_completed" from="Gui" to="GoalLeft" method="_on_Gui_message_completed"]
 [connection signal="start_game" from="Gui" to="." method="_on_Gui_start_game"]
