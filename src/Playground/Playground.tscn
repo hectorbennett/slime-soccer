@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Slime/Slime.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Ball/Ball.tscn" type="PackedScene" id=2]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 10.0
+bounce = 0.3
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 512, 46 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 576.0
+color = Color( 0.0431373, 0, 0.996078, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SlimeLeft" parent="." instance=ExtResource( 1 )]
+position = Vector2( 256, 448 )
+
+[node name="SlimeRight" parent="." instance=ExtResource( 1 )]
+position = Vector2( 768, 448 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+UI_LEFT = "ui_left_p2"
+UI_RIGHT = "ui_right_p2"
+UI_UP = "ui_up_p2"
+UI_DOWN = "ui_down_p2"
+DIRECTION = ""
+INITIAL_TEAM_INDEX = 1
+INITIAL_POSITION = Vector2( 768, 448 )
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 288 )
+physics_material_override = SubResource( 1 )
+
+[node name="Pitch" type="Node2D" parent="."]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Floor" type="StaticBody2D" parent="Pitch"]
+position = Vector2( 512, 640 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/Floor"]
+position = Vector2( 0, -82 )
+shape = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Pitch/Floor"]
+margin_left = -512.0
+margin_top = -128.0
+margin_right = 512.0
+margin_bottom = -32.0
+color = Color( 0.517647, 0.517647, 0.517647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Roof" type="StaticBody2D" parent="Pitch"]
+position = Vector2( 512, -526 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/Roof"]
+shape = SubResource( 2 )
+
+[node name="WallLeft" type="StaticBody2D" parent="Pitch"]
+position = Vector2( 594, 544 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/WallLeft"]
+position = Vector2( -640, -512 )
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="WallRight" type="StaticBody2D" parent="Pitch"]
+position = Vector2( 1070, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pitch/WallRight"]
+rotation = 1.5708
+shape = SubResource( 2 )

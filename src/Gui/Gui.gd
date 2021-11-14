@@ -54,7 +54,7 @@ func display_message(message: String) -> void:
 	emit_signal("message_completed")
 
 func _on_1Min_button_up():
-	emit_signal('start_game', 100)
+	emit_signal('start_game', 600)
 
 func _on_2Min_button_down():
 	emit_signal('start_game', 1200)

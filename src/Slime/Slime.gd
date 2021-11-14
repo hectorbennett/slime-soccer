@@ -24,7 +24,7 @@ const GRAVITY := 100
 const SPEED := 500
 const JUMP_HEIGHT := 1500
 
-var motion := Vector2()
+var velocity := Vector2()
 var current_team_index := 0
 var team: Dictionary = Globals.teams[INITIAL_TEAM_INDEX]
 
@@ -58,26 +58,53 @@ func _process(_delta: float):
 		if Input.is_action_just_pressed(UI_DOWN):
 			set_team(current_team_index - 1)
 
+var is_jumping = false
+var is_touching_left_wall = false
+var is_touching_right_wall = false
+var collision = null
+
 func _physics_process(_delta: float):
-	motion.y += GRAVITY
-	if not get_tree().paused:
-		# move left and right
-		if Input.is_action_pressed(UI_RIGHT):
-			motion.x = SPEED
-		elif Input.is_action_pressed(UI_LEFT):
-			motion.x = -SPEED
+	if get_tree().paused:
+		velocity.x = 0
+		velocity.y = 0
+		return
+
+	if is_jumping:
+		velocity.y += GRAVITY
+
+	if Input.is_action_pressed(UI_RIGHT):
+		if not is_touching_right_wall:
+			velocity.x = SPEED
+			is_touching_left_wall = false
 		else:
-			motion.x = 0
-		
-		# jump
-		if Input.is_action_just_pressed(UI_UP):
-			if is_on_floor():
-				motion.y = -JUMP_HEIGHT
-			
+			velocity.x = 0
+	elif Input.is_action_pressed(UI_LEFT):
+		if not is_touching_left_wall:
+			velocity.x = -SPEED
+			is_touching_right_wall = false
+		else:
+			velocity.x = 0
 	else:
-		motion.x = 0
-		motion.y = 0
-	motion = move_and_slide(motion, UP)
+		velocity.x = 0
+	
+	# jump
+	if Input.is_action_just_pressed(UI_UP):
+		if not is_jumping:
+			velocity.y = -JUMP_HEIGHT
+			is_jumping = true
+
+	collision = move_and_collide(velocity * _delta)
+
+	if collision:
+		if collision.collider.name == 'Floor':
+			is_jumping = false
+			velocity = velocity.slide(collision.normal)
+		if collision.normal == Vector2(1,0):
+			is_touching_left_wall = true
+			velocity = velocity.slide(collision.normal)
+		if collision.normal == Vector2(-1,0):
+			is_touching_right_wall = true
+			velocity = velocity.slide(collision.normal)
 
 func stare_at(node: RigidBody2D):
 	if node:
@@ -92,8 +119,8 @@ func hide_smile():
 		
 func reset() -> void:
 	set_position(INITIAL_POSITION)
-	motion.x = 0
-	motion.y = 0	
+	velocity.x = 0
+	velocity.y = 0	
 
 func _on_Gui_message_completed() -> void:
 	reset()
