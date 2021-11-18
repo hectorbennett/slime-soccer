@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/textures/slimeDecoration.png" type="Texture" id=1]
 [ext_resource path="res://assets/textures/slimeBody.png" type="Texture" id=2]
 [ext_resource path="res://assets/textures/smile.png" type="Texture" id=3]
 [ext_resource path="res://src/Slime/Slime.gd" type="Script" id=4]
 [ext_resource path="res://assets/textures/slimeEye.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 44.7892, 1.49145 )
 
 [node name="Slime" type="KinematicBody2D"]
 pause_mode = 2
@@ -31,5 +34,16 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]
-visible = false
+position = Vector2( 0, -2 )
+scale = Vector2( 1.05, 1.05 )
 polygon = PoolVector2Array( -64, 32, -55.43, 0, -32, -23.43, 0, -32, 32, -23.43, 55.43, 0, 64, 32 )
+
+[node name="Base" type="Area2D" parent="."]
+visible = false
+
+[node name="Hitbox" type="CollisionShape2D" parent="Base"]
+visible = false
+position = Vector2( 0, 30 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Base" to="." method="_on_Base_body_entered"]

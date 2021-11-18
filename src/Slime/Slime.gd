@@ -72,6 +72,7 @@ func _physics_process(_delta: float):
 	if is_jumping:
 		velocity.y += GRAVITY
 
+	# left and right
 	if Input.is_action_pressed(UI_RIGHT):
 		if not is_touching_right_wall:
 			velocity.x = SPEED
@@ -86,7 +87,7 @@ func _physics_process(_delta: float):
 			velocity.x = 0
 	else:
 		velocity.x = 0
-	
+
 	# jump
 	if Input.is_action_just_pressed(UI_UP):
 		if not is_jumping:
@@ -94,7 +95,7 @@ func _physics_process(_delta: float):
 			is_jumping = true
 
 	collision = move_and_collide(velocity * _delta)
-
+	
 	if collision:
 		if collision.collider.name == 'Floor':
 			is_jumping = false
@@ -127,3 +128,8 @@ func _on_Gui_message_completed() -> void:
 
 func _on_Game_game_started() -> void:
 	reset()
+
+
+func _on_Base_body_entered(body: Node) -> void:
+	if body.name == 'Ball':
+		body.positionAboveSlime = true
