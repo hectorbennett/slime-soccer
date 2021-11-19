@@ -76,23 +76,23 @@ func _on_SlimeRight_change_team() -> void:
 func _on_GoalLeft_scored() -> void:
     # if a goal is scored in the left goal
     var team_name = $"../SlimeRight".team['name']
-    display_message('{team_name} scores!\nClick mouse for replay...'.format({'team_name': team_name}))
+    display_message('{team_name} scores!'.format({'team_name': team_name}))
     update_right_label()
 
 func _on_GoalRight_scored() -> void:
     # if a goal is scored in the right goal
     var team_name = $"../SlimeLeft".team['name']
-    display_message('{team_name} scores!\nClick mouse for replay...'.format({'team_name': team_name}))
+    display_message('{team_name} scores!'.format({'team_name': team_name}))
     update_left_label()
 
 func _on_GoalLeft_goal_hanged() -> void:
     var team_name = $"../SlimeLeft".team['name']
-    display_message('{team_name} goal hanged!\nClick mouse for replay...'.format({'team_name': team_name}))
+    display_message('{team_name} goal hanged!'.format({'team_name': team_name}))
     update_right_label()
 
 func _on_GoalRight_goal_hanged() -> void:
     var team_name = $"../SlimeRight".team['name']
-    display_message('{team_name} goal hanged!\nClick mouse for replay...'.format({'team_name': team_name}))
+    display_message('{team_name} goal hanged!'.format({'team_name': team_name}))
     update_right_label()
 
 func _on_Game_game_started() -> void:

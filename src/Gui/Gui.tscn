@@ -64,7 +64,7 @@ __meta__ = {
 }
 
 [node name="1Min" type="Button" parent="Splash/Menu"]
-margin_right = 176.0
+margin_right = 221.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -74,8 +74,8 @@ __meta__ = {
 }
 
 [node name="2Min" type="Button" parent="Splash/Menu"]
-margin_left = 180.0
-margin_right = 357.0
+margin_left = 225.0
+margin_right = 447.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -85,8 +85,8 @@ __meta__ = {
 }
 
 [node name="4Min" type="Button" parent="Splash/Menu"]
-margin_left = 361.0
-margin_right = 537.0
+margin_left = 451.0
+margin_right = 673.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -96,8 +96,8 @@ __meta__ = {
 }
 
 [node name="8Min" type="Button" parent="Splash/Menu"]
-margin_left = 541.0
-margin_right = 718.0
+margin_left = 677.0
+margin_right = 899.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -107,6 +107,7 @@ __meta__ = {
 }
 
 [node name="WorldCup" type="Button" parent="Splash/Menu"]
+visible = false
 margin_left = 722.0
 margin_right = 899.0
 margin_bottom = 58.0
